@@ -9,15 +9,15 @@
 </head>
 <body class="w-screen h-screen bg-[#E0F4FF] flex justify-center items-center font-[Sora]">
 
-    <div id="searchDiv" class="h-48 w-96 bg-[#39A7FF] flex flex-col justify-center items-center relative rounded-md shadow-2xl">
+    <div id="searchDiv" class="max-w-[400px] p-5 bg-[#39A7FF] flex flex-col justify-center items-center relative rounded-md shadow-2xl">
         <h2 class="absolute top-1 mt-3 text-3xl font-bold text-[#FFEED9]">Weather App</h2>
         <input type="text" class="w-[90%] h-10 absolute rounded-md p-2 outline-none shadow-md" id="city" placeholder="Search for a city">
-        <button id="searchBtn" onclick="fetchWeather()" class="absolute bottom-5 p-2 bg-[#87C4FF] text-[#FFEED9] rounded-md shadow-lg">Search</button>
+        <button id="searchBtn" onclick="fetchWeather()" class="absolute bottom-5 p-2 bg-[#87C4FF] text-[#FFEED9] text-center rounded-md shadow-lg">Search</button>
 
-        <img src="" alt="" id="weatherIcon">
+        <img src="" alt="" id="weatherIcon" class="w-[200px] h-[200px] mb-0 hidden">
         <div id="temperatureDiv"></div>
         <div id="weatherInfo"></div>
-        <div id="hourlyForecast"></div>
+        <div id="hourlyForecast" class="mt-12 overflow-x-auto whitespace-nowrap flex justify-between"></div>
     </div>
 
     <script src="script.js"></script>
