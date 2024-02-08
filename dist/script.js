@@ -33,15 +33,15 @@ function fetchWeather(){
 
     async function hourlyWeather(){
         try{
-            const data = await weatherData(forecastUrl);
-            displayHourlyForecast(data);
+            const hourlyData = await weatherData(forecastUrl);
+            displayHourlyForecast(hourlyData);
         }catch(error){
             alert(error.message);
         }
     }
 
     currentWeather();
-    // hourlyWeather();
+    hourlyWeather();
 
     function displayWeather(data){
         const temperatureDiv = document.getElementById('temperatureDiv');
@@ -52,13 +52,13 @@ function fetchWeather(){
         weatherDiv.innerHTML = '';
 
         if(data.cod === '404'){
-
+            weatherDiv.innerHTML = `<p>${data.message}</p>`;
         }else{
             const cityName = data.name;
             const temperature = Math.floor(data.main.temp - 273);
             const description = data.weather[0].description;
             const iconCode = data.weather[0].icon;
-            const iconUrl = `https://openweathermap.org/img/img/wn/${iconCode}@4x.png`;
+            const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
             const temperatureHTML = `
                 <p>${temperature}°c</p>
@@ -75,8 +75,30 @@ function fetchWeather(){
 
             showImage(iconUrl);
         }
+    }
 
+    function displayHourlyForecast(hourlyData){
+        const hourlyForecast = document.getElementById('hourlyForecast');
+        const hourlyItems = hourlyData.list.slice(0, 8);
         
+        hourlyItems.forEach(element => {
+            const dataTime = new Date(element.dt * 1000);
+            const hour = dataTime.getHours();
+            const temperature = Math.round(element.main.temp - 273.15);
+            const iconCode = element.weather[0].icon;
+            const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
+
+
+            const hourlyItemHTML= `
+            <div style="display: flex; flex-direction: column; align-items: center; margin-right: 0.75rem;">
+            <span style="text-align: center;">${hour}:00</span>
+            <img src="${iconUrl}" alt="Hourly Weather Icon" style="width: 2rem; height: 2rem; margin-bottom: 0.25rem;">
+            <span style="text-align: center;">${temperature}°C</span>
+        </div>
+            `;
+
+            hourlyForecast.innerHTML += hourlyItemHTML;
+        });
     }
 
     function showImage(url){
