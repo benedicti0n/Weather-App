@@ -79,6 +79,7 @@ function fetchWeather(){
 
     function displayHourlyForecast(hourlyData){
         const hourlyForecast = document.getElementById('hourlyForecast');
+        const swipe = document.getElementById('swipe');
         const hourlyItems = hourlyData.list.slice(0, 8);
         
         hourlyItems.forEach(element => {
@@ -99,6 +100,8 @@ function fetchWeather(){
 
             hourlyForecast.innerHTML += hourlyItemHTML;
         });
+
+        swipe.style.display = 'block';
     }
 
     function showImage(url){
